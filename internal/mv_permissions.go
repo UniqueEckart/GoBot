@@ -9,7 +9,6 @@ func (mw *MWPermissions) Exec(ctx *context, cmd Command) (next bool, err error) 
 		next = true
 		return
 	}
-
 	defer func() {
 		if !next && err == nil {
 			_, err = ctx.GetSession().ChannelMessageSend(ctx.GetMessage().ChannelID,

@@ -8,6 +8,7 @@ import (
 
 type CommandHandler struct {
 	prefix string
+	cfg    *Config
 
 	cmdInstaces []Command
 	cmdMap      map[string]Command
@@ -16,7 +17,7 @@ type CommandHandler struct {
 	OnError func(err error, ctx Context)
 }
 
-func NewCommandHandler(prefix string) *CommandHandler {
+func NewCommandHandler(prefix string, cfg *Config) *CommandHandler {
 	return &CommandHandler{
 		prefix:      prefix,
 		cmdInstaces: make([]Command, 0),
@@ -58,12 +59,12 @@ func (c *CommandHandler) HandleMessage(s *discordgo.Session, e *discordgo.Messag
 
 	ctxguild, err := s.Guild(e.GuildID)
 	if err != nil {
-		return
+		panic("Context Guild Error")
 	}
 
 	ctxchannel, err := s.Channel(e.ChannelID)
 	if err != nil {
-		return
+		panic("Context Channel error")
 	}
 
 	ctx := &context{

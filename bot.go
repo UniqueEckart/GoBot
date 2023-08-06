@@ -15,6 +15,7 @@ import (
 
 var configPath string
 var debug bool
+var cfg *internal.Config
 
 func init() {
 	flag.StringVar(&configPath, "c", "./config.json", "Allows to set the Config path")
@@ -23,10 +24,7 @@ func init() {
 
 func main() {
 
-	cfg, err := internal.ParseConfigFromJSONFile(configPath)
-	if err != nil {
-		panic(err)
-	}
+	cfg, _ = internal.ParseConfigFromJSONFile(configPath)
 
 	discord, err := discordgo.New("Bot " + cfg.Token)
 	if err != nil {
@@ -56,7 +54,7 @@ func registerEvents(s *discordgo.Session) {
 }
 
 func registerCommands(s *discordgo.Session, prefix string) {
-	cmdHandler := internal.NewCommandHandler(prefix)
+	cmdHandler := internal.NewCommandHandler(prefix, cfg)
 	cmdHandler.OnError = func(err error, ctx internal.Context) {
 		fmt.Printf("Executing of Comman failed: %s", err.Error())
 	}

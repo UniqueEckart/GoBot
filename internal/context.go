@@ -1,6 +1,8 @@
 package internal
 
-import "github.com/bwmarrin/discordgo"
+import (
+	"github.com/bwmarrin/discordgo"
+)
 
 type Context interface {
 	GetSession() *discordgo.Session

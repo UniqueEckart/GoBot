@@ -1,4 +1,9 @@
 {
     "token": "",
-    "prefix": "-"
+    "prefix": "-",
+    "POSTGRESQL_ADRESS": "",
+    "POSTGRESQL_USERNAME": "",
+    "POSTGRESQL_PASSWORD": "",
+    "POSTGRESQL_PORT": "",
+    "POSTGRESQL_DATABASE": ""
 }

@@ -31,16 +31,14 @@ func (c *CmdBackup) HasSubCommands() bool {
 }
 
 func (c *CmdBackup) Exec(ctx internal.Context) (err error) {
-	guild := ctx.GetGuild()
-	fmt.Printf("%v", ctx.GetAllGuildChanneles())
 	if ctx.GetArgs()[0] == "save" {
-		serializeChannelPermissions(guild.Channels)
-		ctx.Replay("Alles Channels gesichert")
+		serializeChannelPermissions(ctx.GetAllGuildChanneles())
+		ctx.Replay("Alles Channels gesichert!")
 	}
 
 	if ctx.GetArgs()[0] == "load" {
-		loadChannelPermissions(ctx.GetSession(), guild.Channels)
-		ctx.Replay("Alle Channeg geladen!")
+		loadChannelPermissions(ctx.GetSession(), ctx.GetAllGuildChanneles())
+		ctx.Replay("Alle Channel wiederhergestellt!")
 	}
 
 	return
