@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bot/commands"
+	//	"bot/commands"
 	"bot/events"
 	"bot/internal"
 	"flag"
@@ -51,6 +51,7 @@ func main() {
 
 func registerEvents(s *discordgo.Session) {
 	s.AddHandler(events.NewReadyHandler().Handler)
+	s.AddHandler(events.NewLeaveHandler().Handler)
 }
 
 func registerCommands(s *discordgo.Session, prefix string) {
@@ -59,7 +60,7 @@ func registerCommands(s *discordgo.Session, prefix string) {
 		fmt.Printf("Executing of Comman failed: %s", err.Error())
 	}
 
-	cmdHandler.RegisterCommand(&commands.CmdBackup{})
+	//	cmdHandler.RegisterCommand(&commands.CmdBackup{})
 	cmdHandler.RegisterMiddelware(&internal.MWPermissions{})
 
 	s.AddHandler(cmdHandler.HandleMessage)

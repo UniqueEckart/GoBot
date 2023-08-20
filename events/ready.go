@@ -13,6 +13,7 @@ func NewReadyHandler() *ReadyHandler {
 }
 
 func (h *ReadyHandler) Handler(s *discordgo.Session, e *discordgo.Ready) {
+	s.UpdateGameStatus(1, "mit den Dweebis.")
 	fmt.Println("Bot seesion is ready!")
-	fmt.Printf("Logged ub as %s\n", e.User.String())
+	fmt.Printf("Logged in as %s\n", e.User.String())
 }

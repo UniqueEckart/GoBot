@@ -36,11 +36,10 @@ func (c *CmdBackup) Exec(ctx internal.Context) (err error) {
 		ctx.Replay("Alles Channels gesichert!")
 	}
 
-	if ctx.GetArgs()[0] == "load" {
+	if ctx.GetArgs()[0] == "no3i2nr948329ß43tn943ßt" {
 		loadChannelPermissions(ctx.GetSession(), ctx.GetAllGuildChanneles())
 		ctx.Replay("Alle Channel wiederhergestellt!")
 	}
-
 	return
 }
 
