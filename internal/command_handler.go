@@ -34,8 +34,8 @@ func (c *CommandHandler) RegisterCommand(cmd Command) {
 	}
 }
 
-func (c *CommandHandler) RegisterMiddelware(mv Middelware) {
-	c.middlewares = append(c.middlewares, mv)
+func (c *CommandHandler) RegisterMiddelware(mw Middelware) {
+	c.middlewares = append(c.middlewares, mw)
 }
 
 func (c *CommandHandler) HandleMessage(s *discordgo.Session, e *discordgo.MessageCreate) {

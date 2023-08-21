@@ -8,6 +8,7 @@ import (
 type Config struct {
 	Token          string `json:"token"`
 	Prefix         string `json:"prefix"`
+	Debug          string `json:"debug"`
 	MYSQL_HOST     string `json:"MYSQL_HOST"`
 	MYSQL_USER     string `json:"MYSQL_USER"`
 	MYSQL_PASSWORD string `json:"MYSQL_PASSWORD"`

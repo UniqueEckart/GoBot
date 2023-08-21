@@ -15,7 +15,7 @@ type CmdBackup struct{}
 func (c *CmdBackup) Invokes() []string {
 	return []string{"backup"}
 }
-func (c *CmdBackup) Descreption() string {
+func (c *CmdBackup) Description() string {
 	return "Save and Load Channels of a Server like a backup just for discord Servers"
 }
 func (c *CmdBackup) HelpSyntax() string {
@@ -24,6 +24,10 @@ func (c *CmdBackup) HelpSyntax() string {
 
 func (c *CmdBackup) AdminRequired() bool {
 	return true
+}
+
+func (c *CmdBackup) RequiredUserPermissions() int64 {
+	return discordgo.PermissionAdministrator
 }
 
 func (c *CmdBackup) HasSubCommands() bool {
@@ -36,7 +40,7 @@ func (c *CmdBackup) Exec(ctx internal.Context) (err error) {
 		ctx.Replay("Alles Channels gesichert!")
 	}
 
-	if ctx.GetArgs()[0] == "no3i2nr948329ß43tn943ßt" {
+	if ctx.GetArgs()[0] == "load" {
 		loadChannelPermissions(ctx.GetSession(), ctx.GetAllGuildChanneles())
 		ctx.Replay("Alle Channel wiederhergestellt!")
 	}

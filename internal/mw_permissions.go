@@ -1,6 +1,8 @@
 package internal
 
-import "github.com/bwmarrin/discordgo"
+import (
+	"github.com/bwmarrin/discordgo"
+)
 
 type MWPermissions struct{}
 
@@ -13,6 +15,7 @@ func (mw *MWPermissions) Exec(ctx *context, cmd Command) (next bool, err error) 
 		if !next && err == nil {
 			_, err = ctx.GetSession().ChannelMessageSend(ctx.GetMessage().ChannelID,
 				"Du hast nicht die rechte diesen Command auszuführen!")
+
 		}
 	}()
 
@@ -28,7 +31,7 @@ func (mw *MWPermissions) Exec(ctx *context, cmd Command) (next bool, err error) 
 	}
 
 	for _, rID := range ctx.GetMessage().Member.Roles {
-		if role, ok := roleMap[rID]; ok && role.Permissions&discordgo.PermissionAdministrator > 0 {
+		if role, ok := roleMap[rID]; ok && role.Permissions&cmd.RequiredUserPermissions() > 0 {
 			next = true
 			break
 		}

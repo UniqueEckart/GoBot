@@ -2,8 +2,10 @@ package main
 
 import (
 	//	"bot/commands"
+	"bot/commands"
 	"bot/events"
 	"bot/internal"
+	"bot/web"
 	"flag"
 	"fmt"
 	"os"
@@ -15,7 +17,7 @@ import (
 
 var configPath string
 var debug bool
-var cfg *internal.Config
+var CFG *internal.Config
 
 func init() {
 	flag.StringVar(&configPath, "c", "./config.json", "Allows to set the Config path")
@@ -24,24 +26,24 @@ func init() {
 
 func main() {
 
-	cfg, _ = internal.ParseConfigFromJSONFile(configPath)
+	CFG, _ = internal.ParseConfigFromJSONFile(configPath)
 
-	discord, err := discordgo.New("Bot " + cfg.Token)
+	discord, err := discordgo.New("Bot " + CFG.Token)
 	if err != nil {
-		fmt.Println("Error creating discord session", err)
+		fmt.Println("[ERROR] Error creating discord session", err)
 		return
 	}
 
 	discord.Identify.Intents = discordgo.IntentsAll
-
+	web.Init()
 	registerEvents(discord)
-	registerCommands(discord, cfg.Prefix)
+	registerCommands(discord, CFG.Prefix)
 
 	if err = discord.Open(); err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Bot is now running.  Press CTRL-C to exit")
+	fmt.Println("[INFO] Bot is now running.  Press CTRL-C to exit")
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
 	<-sc
@@ -50,17 +52,19 @@ func main() {
 }
 
 func registerEvents(s *discordgo.Session) {
+	s.AddHandler(events.NewUserUpdateLog().Handler)
+	//	s.AddHandler(events.NewJoinHandler().Handler)
 	s.AddHandler(events.NewReadyHandler().Handler)
 	s.AddHandler(events.NewLeaveHandler().Handler)
 }
 
 func registerCommands(s *discordgo.Session, prefix string) {
-	cmdHandler := internal.NewCommandHandler(prefix, cfg)
+	cmdHandler := internal.NewCommandHandler(prefix, CFG)
 	cmdHandler.OnError = func(err error, ctx internal.Context) {
 		fmt.Printf("Executing of Comman failed: %s", err.Error())
 	}
 
-	//	cmdHandler.RegisterCommand(&commands.CmdBackup{})
+	cmdHandler.RegisterCommand(&commands.CmdBackup{})
 	cmdHandler.RegisterMiddelware(&internal.MWPermissions{})
 
 	s.AddHandler(cmdHandler.HandleMessage)

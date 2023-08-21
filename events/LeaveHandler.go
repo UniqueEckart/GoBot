@@ -13,6 +13,6 @@ func NewLeaveHandler() *LeaveHandler {
 }
 
 func (h *LeaveHandler) Handler(s *discordgo.Session, e *discordgo.GuildMemberRemove) {
-	format := fmt.Sprintf("<@%s> hat uns leider verlassen", e.User.ID)
+	format := fmt.Sprintf("<@%s>/%s hat uns leider verlassen", e.User.ID, e.User.Username)
 	s.ChannelMessageSend("1136055788582998076", format)
 }
