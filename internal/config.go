@@ -13,12 +13,14 @@ type Config struct {
 	MYSQL_USER     string `json:"MYSQL_USER"`
 	MYSQL_PASSWORD string `json:"MYSQL_PASSWORD"`
 	MYSQL_DATABASE string `json:"MYSQL_DATABASE"`
-	WelcomeChannel string `json:"welcome_channel"`
+	WelcomeChannel string `json:"Welcome_Channel_ID"`
+	LeaveChannel   string `json:"Leave_Channel_ID"`
 }
 
 func ParseConfigFromJSONFile(fileName string) (c *Config, err error) {
 	f, err := os.Open(fileName)
 	if err != nil {
+		Log("Error creating config file", 1)
 		return
 	}
 	c = new(Config)

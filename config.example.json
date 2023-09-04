@@ -1,9 +1,11 @@
 {
     "token": "",
     "prefix": "-",
-    "POSTGRESQL_ADRESS": "",
-    "POSTGRESQL_USERNAME": "",
-    "POSTGRESQL_PASSWORD": "",
-    "POSTGRESQL_PORT": "",
-    "POSTGRESQL_DATABASE": ""
+    "MYSQL_ADRESS": "",
+    "MYSQL_USERNAME": "",
+    "MYSQL_PASSWORD": "",
+    "MYSQL_PORT": "",
+    "MYSQL_DATABASE": "",
+    "Welcome_Channel_ID" : "",
+    "Leave_Channel_ID": ""
 }

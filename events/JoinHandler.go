@@ -13,6 +13,10 @@ func NewJoinHandler() *JoinHandler {
 }
 
 func (h *JoinHandler) Handler(s *discordgo.Session, e *discordgo.GuildMemberAdd) {
-	format := fmt.Sprintf("Wilkommen <@%s>! Ließ dir am besten erstmal die Regeln durch. Dannach kannst du in <#1128726602776326184> deine Rollen personalisieren!", e.User.ID)
+	var joinembed discordgo.MessageEmbed
+	format := fmt.Sprintf("Wilkommen <@%s>!", e.User.ID)
+	joinembed.Title = "Wilkommen"
+	joinembed.Description = "Ließ dir am besten erstmal die Regeln durch. Dannach kannst du in <#1128726602776326184> deine Rollen personalisieren!"
+	joinembed.Author = &discordgo.MessageEmbedAuthor{Name: e.User.Username, IconURL: e.User.AvatarURL("")}
 	s.ChannelMessageSend("1128726602776326185", format)
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	//	"bot/commands"
 	"bot/commands"
 	"bot/events"
 	"bot/internal"
@@ -17,33 +16,32 @@ import (
 
 var configPath string
 var debug bool
-var CFG *internal.Config
+var Config *internal.Config
 
 func init() {
-	flag.StringVar(&configPath, "c", "./config.json", "Allows to set the Config path")
-	flag.BoolVar(&debug, "debug", false, "Activates the Debug Logs of the Bot")
+	flag.StringVar(&configPath, "c", "./config.json", "The Path of the Config to use. Default: ./config.json")
+	flag.BoolVar(&debug, "debug", false, "Debugging")
 }
 
 func main() {
 
-	CFG, _ = internal.ParseConfigFromJSONFile(configPath)
+	Config, _ = internal.ParseConfigFromJSONFile(configPath)
 
-	discord, err := discordgo.New("Bot " + CFG.Token)
+	discord, err := discordgo.New("Bot " + Config.Token)
 	if err != nil {
-		fmt.Println("[ERROR] Error creating discord session", err)
+		internal.Log("Faild to create discord session!", 1)
 		return
 	}
 
 	discord.Identify.Intents = discordgo.IntentsAll
 	web.Init()
 	registerEvents(discord)
-	registerCommands(discord, CFG.Prefix)
+	registerCommands(discord, Config.Prefix)
 
 	if err = discord.Open(); err != nil {
-		panic(err)
+		internal.Log(err.Error(), 1)
 	}
-
-	fmt.Println("[INFO] Bot is now running.  Press CTRL-C to exit")
+	internal.Log("Bot is now running. Press CTRL-C to exit", 0)
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
 	<-sc
@@ -59,7 +57,7 @@ func registerEvents(s *discordgo.Session) {
 }
 
 func registerCommands(s *discordgo.Session, prefix string) {
-	cmdHandler := internal.NewCommandHandler(prefix, CFG)
+	cmdHandler := internal.NewCommandHandler(prefix, Config)
 	cmdHandler.OnError = func(err error, ctx internal.Context) {
 		fmt.Printf("Executing of Comman failed: %s", err.Error())
 	}
