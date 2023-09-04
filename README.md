@@ -1,7 +1,7 @@
-##Discord Go Bot
+## Discord Go Bot
 This is a small Discord Bot written in go for learning.
 
-###Installation
+### Installation
 First you need to clone the Repository
 ```
 git clone https://github.com/UniqueEckart/GoBot
@@ -27,7 +27,7 @@ And Finally run
 ./bot
 ```
 
-##Features
+## Features
 
 The Bot has a small build-in webserver which is currently only for Healthcheck. But maybe there will come more the only endpoint is.
 ```url
