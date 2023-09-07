@@ -15,14 +15,9 @@ type Config struct {
 	MYSQL_USER     string `json:"MYSQL_USER"`
 	MYSQL_PASSWORD string `json:"MYSQL_PASSWORD"`
 	MYSQL_DATABASE string `json:"MYSQL_DATABASE"`
-<<<<<<< HEAD
 	WelcomeChannel string `json:"WelcomeChannel"`
 	LogChannel     string `json:"LogChannel"`
 	LeaveChannel   string `json:"LeaveChannel"`
-=======
-	WelcomeChannel string `json:"Welcome_Channel_ID"`
-	LeaveChannel   string `json:"Leave_Channel_ID"`
->>>>>>> 97e918001166bca123c923229e307395197f3469
 }
 
 func ParseConfigFromJSONFile(fileName string) (c *Config, err error) {
