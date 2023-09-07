@@ -1,6 +1,6 @@
 FROM golang:1.15-alpine as build
 
-WOKRDIR /build
+WORKDIR /build
 COPY . .
 RUN go mod download
 RUN go build -o bot bot.go

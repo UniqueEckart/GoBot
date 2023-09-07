@@ -30,3 +30,18 @@ func ParseConfigFromJSONFile(fileName string) (c *Config, err error) {
 	err = json.NewDecoder(f).Decode(c)
 	return
 }
+
+func ValidateConfig() {
+	if Bot_Config.Token == "" {
+		Log("Please Provide a Discord Token", 1)
+	}
+	if Bot_Config.WelcomeChannel == "" {
+		Log("Please Provide a Channel ID for the Welcome Channel", 1)
+	}
+	if Bot_Config.LeaveChannel == "" {
+		Log("Please Provide a Channel ID for the Leave Channel", 1)
+	}
+	if Bot_Config.LogChannel == "" {
+		Log("Please Provide a Channel ID for the Bot Log Channel", 1)
+	}
+}

@@ -26,6 +26,7 @@ func init() {
 func main() {
 
 	internal.Bot_Config, _ = internal.ParseConfigFromJSONFile(configPath)
+	internal.ValidateConfig()
 
 	discord, err := discordgo.New("Bot " + internal.Bot_Config.Token)
 	if err != nil {
