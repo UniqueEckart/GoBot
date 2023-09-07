@@ -1,6 +1,7 @@
 package events
 
 import (
+	"bot/internal"
 	"fmt"
 
 	"github.com/bwmarrin/discordgo"
@@ -14,5 +15,5 @@ func NewLeaveHandler() *LeaveHandler {
 
 func (h *LeaveHandler) Handler(s *discordgo.Session, e *discordgo.GuildMemberRemove) {
 	format := fmt.Sprintf("<@%s>/%s hat uns leider verlassen", e.User.ID, e.User.Username)
-	s.ChannelMessageSend("1136055788582998076", format)
+	s.ChannelMessageSend(internal.Bot_Config.LeaveChannel, format)
 }

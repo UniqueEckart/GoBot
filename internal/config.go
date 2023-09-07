@@ -5,6 +5,8 @@ import (
 	"os"
 )
 
+var Bot_Config *Config
+
 type Config struct {
 	Token          string `json:"token"`
 	Prefix         string `json:"prefix"`
@@ -13,7 +15,9 @@ type Config struct {
 	MYSQL_USER     string `json:"MYSQL_USER"`
 	MYSQL_PASSWORD string `json:"MYSQL_PASSWORD"`
 	MYSQL_DATABASE string `json:"MYSQL_DATABASE"`
-	WelcomeChannel string `json:"welcome_channel"`
+	WelcomeChannel string `json:"WelcomeChannel"`
+	LogChannel     string `json:"LogChannel"`
+	LeaveChannel   string `json:"LeaveChannel"`
 }
 
 func ParseConfigFromJSONFile(fileName string) (c *Config, err error) {

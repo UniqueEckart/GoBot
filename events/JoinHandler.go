@@ -3,6 +3,8 @@ package events
 import (
 	"fmt"
 
+	"bot/internal"
+
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -13,6 +15,7 @@ func NewJoinHandler() *JoinHandler {
 }
 
 func (h *JoinHandler) Handler(s *discordgo.Session, e *discordgo.GuildMemberAdd) {
+	s.GuildMemberRoleAdd(e.GuildID, e.User.ID, "820680792363237379")
 	format := fmt.Sprintf("Wilkommen <@%s>! Ließ dir am besten erstmal die Regeln durch. Dannach kannst du in <#1128726602776326184> deine Rollen personalisieren!", e.User.ID)
-	s.ChannelMessageSend("1128726602776326185", format)
+	s.ChannelMessageSend(internal.Bot_Config.WelcomeChannel, format)
 }

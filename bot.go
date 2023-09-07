@@ -1,7 +1,6 @@
 package main
 
 import (
-	//	"bot/commands"
 	"bot/commands"
 	"bot/events"
 	"bot/internal"
@@ -17,18 +16,18 @@ import (
 
 var configPath string
 var debug bool
-var CFG *internal.Config
 
 func init() {
 	flag.StringVar(&configPath, "c", "./config.json", "Allows to set the Config path")
 	flag.BoolVar(&debug, "debug", false, "Activates the Debug Logs of the Bot")
+	flag.Parse()
 }
 
 func main() {
 
-	CFG, _ = internal.ParseConfigFromJSONFile(configPath)
+	internal.Bot_Config, _ = internal.ParseConfigFromJSONFile(configPath)
 
-	discord, err := discordgo.New("Bot " + CFG.Token)
+	discord, err := discordgo.New("Bot " + internal.Bot_Config.Token)
 	if err != nil {
 		fmt.Println("[ERROR] Error creating discord session", err)
 		return
@@ -37,7 +36,7 @@ func main() {
 	discord.Identify.Intents = discordgo.IntentsAll
 	web.Init()
 	registerEvents(discord)
-	registerCommands(discord, CFG.Prefix)
+	registerCommands(discord, internal.Bot_Config.Prefix)
 
 	if err = discord.Open(); err != nil {
 		panic(err)
@@ -52,14 +51,13 @@ func main() {
 }
 
 func registerEvents(s *discordgo.Session) {
-	s.AddHandler(events.NewUserUpdateLog().Handler)
-	//	s.AddHandler(events.NewJoinHandler().Handler)
+	s.AddHandler(events.NewJoinHandler().Handler)
 	s.AddHandler(events.NewReadyHandler().Handler)
 	s.AddHandler(events.NewLeaveHandler().Handler)
 }
 
 func registerCommands(s *discordgo.Session, prefix string) {
-	cmdHandler := internal.NewCommandHandler(prefix, CFG)
+	cmdHandler := internal.NewCommandHandler(prefix, internal.Bot_Config)
 	cmdHandler.OnError = func(err error, ctx internal.Context) {
 		fmt.Printf("Executing of Comman failed: %s", err.Error())
 	}
