@@ -54,7 +54,7 @@ func (ctx *context) GetArgs() []string {
 func (ctx *context) Replay(message string) *discordgo.Message {
 	reply, err := ctx.session.ChannelMessageSend(ctx.channel.ID, message)
 	if err != nil {
-		panic("Could not send Message")
+		Log("Could not send Message", 1)
 	}
 	return reply
 }

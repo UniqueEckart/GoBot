@@ -1,7 +1,7 @@
 package events
 
 import (
-	"fmt"
+	"bot/internal"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -14,6 +14,6 @@ func NewReadyHandler() *ReadyHandler {
 
 func (h *ReadyHandler) Handler(s *discordgo.Session, e *discordgo.Ready) {
 	s.UpdateGameStatus(1, "mit den Dweebis.")
-	fmt.Println("[INFO] Bot seesion is ready!")
-	fmt.Printf("[LOG] Logged in as %s\n", e.User.String())
+	internal.Log("Bot is ready!", 0)
+	internal.LogFormat("Logged in as %s\n", 0, e.User.Username)
 }

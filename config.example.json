@@ -1,6 +1,7 @@
 {
     "token": "",
     "prefix": "-",
+<<<<<<< HEAD
     "MYSQL_USERNAME": "",
     "MYSQL_ADRESS": "",
     "MYSQL_PASSWORD": "",
@@ -8,4 +9,13 @@
     "MYSQL_DATABASE": "",
     "WelcomeChannel": "",
     "LogChannel": ""
+=======
+    "MYSQL_ADRESS": "",
+    "MYSQL_USERNAME": "",
+    "MYSQL_PASSWORD": "",
+    "MYSQL_PORT": "",
+    "MYSQL_DATABASE": "",
+    "Welcome_Channel_ID" : "",
+    "Leave_Channel_ID": ""
+>>>>>>> 97e918001166bca123c923229e307395197f3469
 }
